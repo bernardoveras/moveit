@@ -2,7 +2,7 @@ import 'dart:ui';
 
 class AppColors {
   static Color white = Color(0xFFFFF);
-  static Color background = Color(0xFF2F3F5);
+  static Color background = Color(0xFFF2F3F5);
   static Color grayLine = Color(0xFFDCDDE0);
   static Color textHighlight = Color(0xFFB3B9FF);
   static Color title = Color(0xFF2E384D);
