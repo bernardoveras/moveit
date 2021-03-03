@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moveit/presentation/home.dart';
+import 'package:moveit/presentation/home_page.dart';
 import 'package:moveit/shared/styles/theme.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class App extends StatelessWidget {
       title: 'moveit',
       debugShowCheckedModeBanner: false,
       theme: APP_THEME,
-      builder: (context, child) => HomePage(),
+      home: HomePage(),
     );
   }
 }

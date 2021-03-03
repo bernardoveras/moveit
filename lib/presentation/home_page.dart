@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:moveit/presentation/components/completed_challenges.dart';
 import 'package:moveit/presentation/components/experience_bar.dart';
-import 'package:moveit/shared/styles/colors.dart';
+import 'package:moveit/presentation/components/profile.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -9,17 +10,12 @@ class HomePage extends StatelessWidget {
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.5,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Positioned(
-                top: 50,
-                child: ExperienceBar(),
-              ),
-            ],
-          ),
+        child: Column(
+          children: [
+            ExperienceBar(),
+            Profile(),
+            CompletedChallenges(),
+          ],
         ),
       ),
     );
