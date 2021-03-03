@@ -5,10 +5,13 @@ class ExperienceBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 20,
+      width: MediaQuery.of(context).size.width * 0.5,
       alignment: Alignment.center,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             '0 xp',

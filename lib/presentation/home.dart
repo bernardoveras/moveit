@@ -6,16 +6,20 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: AppColors.background,
-        height: MediaQuery.of(context).size.height,
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(vertical: 50, horizontal: 250),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ExperienceBar(),
-          ],
+        height: MediaQuery.of(context).size.height,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.5,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Positioned(
+                top: 50,
+                child: ExperienceBar(),
+              ),
+            ],
+          ),
         ),
       ),
     );
