@@ -1,12 +1,29 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:moveit/presentation/components/completed_challenges.dart';
 import 'package:moveit/presentation/components/countdown.dart';
+import 'package:moveit/presentation/components/cycle_button.dart';
 import 'package:moveit/presentation/components/experience_bar.dart';
 import 'package:moveit/presentation/components/profile.dart';
 import 'package:moveit/shared/styles/colors.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool active = false;
+  int time = 25;
+
+  set setActive(bool value) {
+    setState(() {
+      active = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,45 +66,10 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     Profile(),
                                     CompletedChallenges(),
-                                    Countdown(25),
-                                    FadeInUp(
-                                      duration: Duration(milliseconds: 300),
-                                      from: 20,
-                                      child: ElevatedButton.icon(
-                                        onPressed: () {},
-                                        style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty
-                                              .resolveWith<Color>(
-                                            (Set<MaterialState> states) {
-                                              if (states.contains(
-                                                  MaterialState.pressed))
-                                                return AppColors.blueDark;
-                                              return AppColors.blue;
-                                            },
-                                          ),
-                                          elevation:
-                                              MaterialStateProperty.all(0),
-                                          animationDuration:
-                                              Duration(milliseconds: 300),
-                                          minimumSize:
-                                              MaterialStateProperty.all(
-                                            Size(size.maxWidth, 80),
-                                          ),
-                                          textStyle: MaterialStateProperty.all(
-                                            TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'Inter',
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                        icon: Icon(
-                                          Icons.arrow_right,
-                                        ),
-                                        label: Text('Iniciar um ciclo'),
-                                      ),
-                                    )
+                                    Countdown(time),
+                                    CycleButton(
+                                        active: active,
+                                        onPressed: () => setActive = !active),
                                   ],
                                 ),
                               ),
