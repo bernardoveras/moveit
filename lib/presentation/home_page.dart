@@ -50,7 +50,7 @@ class HomePage extends GetView<HomeController> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Profile(),
                                     CompletedChallenges(),

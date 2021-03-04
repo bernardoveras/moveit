@@ -9,7 +9,7 @@ class HomeController extends GetxController {
   Worker? _ever;
 
   Rx<CycleState> _state = CycleState.Initial.obs;
-  CycleState get state => _state.value;
+  CycleState get state => _state.value!;
   set state(CycleState value) => _state.value = value;
   resetState() => _state.value = CycleState.Initial;
 

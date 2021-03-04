@@ -54,7 +54,7 @@ class Profile extends StatelessWidget {
                   child: Row(
                     children: [
                       SvgPicture.asset('assets/icons/level.svg'),
-                      SizedBox(width: 5),
+                      SizedBox(width: 8),
                       Text(
                         'Level 1',
                         style: TextStyle(
