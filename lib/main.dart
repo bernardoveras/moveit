@@ -5,6 +5,7 @@ import 'package:moveit/presentation/home_page.dart';
 import 'package:moveit/shared/styles/theme.dart';
 
 import 'presentation/home_controller.dart';
+import 'shared/services/message_service.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +27,7 @@ class App extends StatelessWidget {
         GetPage(
           name: '/',
           page: () => HomePage(),
-          binding: HomeBinding(),
+          binding: HomeBinding(context),
         ),
       ],
       theme: APP_THEME,
@@ -36,8 +37,12 @@ class App extends StatelessWidget {
 }
 
 class HomeBinding extends Bindings{
+  final BuildContext context;
+  HomeBinding(this.context);
+
   @override
   void dependencies() {
+    Get.create<IMessageService>(()=> MessageService());
     Get.lazyPut(() => HomeController());
   }
 

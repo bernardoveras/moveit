@@ -1,28 +1,36 @@
 import 'dart:async';
-
 import 'package:get/get.dart';
+import 'package:moveit/shared/cycle_states.dart';
+import 'package:moveit/shared/services/message_service.dart';
 
 class HomeController extends GetxController {
+  late IMessageService messageService;
+
   Worker? _ever;
 
-  RxBool _active = false.obs;
-  bool get active => _active.value;
-  set active(bool value) => _active.value = value;
+  Rx<CycleState> _state = CycleState.Initial.obs;
+  CycleState get state => _state.value;
+  set state(CycleState value) => _state.value = value;
+  resetState() => _state.value = CycleState.Initial;
 
   RxInt _time = (25 * 60).obs;
   int get time => _time.value;
   set time(int value) => _time.value = value;
+  resetTime() => _time.value = (25 * 60);
 
   @override
   void onInit() {
     super.onInit();
+    messageService = Get.find<IMessageService>();
     _ever = everAll(
-      [_active, _time],
+      [_state, _time],
       (value) {
-        if (active == true && time > 0) {
+        if (state == CycleState.Started && time > 0) {
           Future.delayed(const Duration(seconds: 1), () {
             time = time - 1;
           });
+        } else if (state == CycleState.Initial && time > 0) {
+          resetTime();
         }
       },
     );

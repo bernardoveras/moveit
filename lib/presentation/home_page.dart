@@ -8,6 +8,7 @@ import 'package:moveit/presentation/components/cycle_button.dart';
 import 'package:moveit/presentation/components/experience_bar.dart';
 import 'package:moveit/presentation/components/profile.dart';
 import 'package:moveit/presentation/home_controller.dart';
+import 'package:moveit/shared/cycle_states.dart';
 import 'package:moveit/shared/styles/colors.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -54,10 +55,19 @@ class HomePage extends GetView<HomeController> {
                                     Profile(),
                                     CompletedChallenges(),
                                     Obx(() => Countdown(controller.time)),
-                                    Obx(() => CycleButton(
-                                        active: controller.active,
-                                        onPressed: () => controller.active =
-                                            !controller.active)),
+                                    Obx(
+                                      () => CycleButton(
+                                          state: controller.state,
+                                          onPressed: () {
+                                            if (controller.state ==
+                                                CycleState.Initial) {
+                                              controller.state =
+                                                  CycleState.Started;
+                                            } else {
+                                              controller.resetState();
+                                            }
+                                          }),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -76,7 +86,7 @@ class HomePage extends GetView<HomeController> {
                                   ],
                                 ),
                                 child: Obx(
-                                  () => controller.active
+                                  () => controller.state == CycleState.Initial
                                       ? FadeInUp(
                                           duration: Duration(milliseconds: 300),
                                           from: 40,
