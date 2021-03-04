@@ -15,7 +15,7 @@ class ExperienceBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 20,
-      width: MediaQuery.of(context).size.width * 0.8,
+      width: MediaQuery.of(context).size.width * 0.65,
       alignment: Alignment.center,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

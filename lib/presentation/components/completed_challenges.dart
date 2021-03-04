@@ -5,7 +5,6 @@ class CompletedChallenges extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 80,
-      // width: 200,
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
