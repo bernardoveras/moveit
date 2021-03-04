@@ -17,7 +17,7 @@ class CycleButton extends StatelessWidget {
         style: ButtonStyle(
           foregroundColor: MaterialStateProperty.resolveWith((states) {
             if (states.contains(MaterialState.hovered)) return Colors.white;
-            
+
             return active ? Color(0xFF666666) : Colors.white;
           }),
           backgroundColor: MaterialStateProperty.resolveWith<Color>(

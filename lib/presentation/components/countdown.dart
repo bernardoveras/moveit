@@ -3,16 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:moveit/shared/styles/colors.dart';
 
 class Countdown extends StatelessWidget {
-  final int countdownTime;
+  int countdownTime;
+  int _minutes = 0;
+  int _seconds = 0;
+  List<String>? _minutesArray = ['0', '0'];
+  List<String>? _secondsArray = ['0', '0'];
 
-  const Countdown([this.countdownTime = 25]);
+  Countdown([this.countdownTime = 25]) {
+    this.countdownTime = countdownTime;
+    _minutes = (countdownTime / 60).floor();
+    _seconds = countdownTime % 60;
 
-  int get time => (countdownTime * 60);
-  int get minutes => (time / 60).floor();
-  int get seconds => (time % 60);
-
-  List<String> get minutesArray => minutes.toString().padLeft(2, '0').split('');
-  List<String> get secondsArray => seconds.toString().padLeft(2, '0').split('');
+    _minutesArray = _minutes.toString().padLeft(2, '0').split('');
+    _secondsArray = _seconds.toString().padLeft(2, '0').split('');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,7 @@ class Countdown extends StatelessWidget {
         direction: Axis.horizontal,
         children: [
           CountdownNumberContainer(
-              leftValue: minutesArray[0], rightValue: minutesArray[1]),
+              leftValue: _minutesArray![0], rightValue: _minutesArray![1]),
           Text(
             ':',
             style: TextStyle(
@@ -36,8 +40,8 @@ class Countdown extends StatelessWidget {
             ),
           ),
           CountdownNumberContainer(
-              leftValue: secondsArray[0],
-              rightValue: secondsArray[1],
+              leftValue: _secondsArray![0],
+              rightValue: _secondsArray![1],
               showBorder: true),
         ],
       ),

@@ -30,7 +30,7 @@ class App extends StatelessWidget {
         ),
       ],
       theme: APP_THEME,
-      home: HomePage(),
+
     );
   }
 }
