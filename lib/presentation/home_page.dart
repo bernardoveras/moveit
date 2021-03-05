@@ -6,7 +6,10 @@ import 'package:moveit/presentation/components/completed_challenges.dart';
 import 'package:moveit/presentation/components/countdown.dart';
 import 'package:moveit/presentation/components/cycle_button.dart';
 import 'package:moveit/presentation/components/experience_bar.dart';
+import 'package:moveit/presentation/components/finish_banner.dart';
+import 'package:moveit/presentation/components/initial_banner.dart';
 import 'package:moveit/presentation/components/profile.dart';
+import 'package:moveit/presentation/components/started_banner.dart';
 import 'package:moveit/presentation/home_controller.dart';
 import 'package:moveit/shared/cycle_states.dart';
 import 'package:moveit/shared/styles/colors.dart';
@@ -30,7 +33,6 @@ class HomePage extends GetView<HomeController> {
                         top: 40,
                         child: ExperienceBar(0),
                       ),
-
                       Container(
                         width: constraints.maxWidth * 0.65,
                         height: constraints.maxHeight * 0.6,
@@ -52,8 +54,8 @@ class HomePage extends GetView<HomeController> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Profile(),
-                                    CompletedChallenges(),
+                                    Profile(user: controller.currentUser?.value),
+                                    CompletedChallenges(controller.currentUser!.value!.completedChallenges),
                                     Obx(() => Countdown(controller.time)),
                                     Obx(
                                       () => CycleButton(
@@ -63,7 +65,8 @@ class HomePage extends GetView<HomeController> {
                                                 CycleState.Initial) {
                                               controller.state =
                                                   CycleState.Started;
-                                            } else {
+                                            } else if (controller.state ==
+                                                CycleState.Started) {
                                               controller.resetState();
                                             }
                                           }),
@@ -74,6 +77,10 @@ class HomePage extends GetView<HomeController> {
                               Container(
                                 height: constraints.maxHeight * 0.6,
                                 width: size.maxWidth / 2 - 100,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 50,
+                                  vertical: 50,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(5),
@@ -87,87 +94,10 @@ class HomePage extends GetView<HomeController> {
                                 ),
                                 child: Obx(
                                   () => controller.state == CycleState.Initial
-                                      ? FadeInUp(
-                                          duration: Duration(milliseconds: 300),
-                                          from: 40,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                'Finalize o ciclo\npara receber desafios a\n serem completados',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: AppColors.title,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 30,
-                                                  height: 1.3,
-                                                ),
-                                              ),
-                                              SizedBox(height: 50),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  SvgPicture.asset(
-                                                    'assets/icons/level-up.svg',
-                                                    height: 60,
-                                                    width: 60,
-                                                  ),
-                                                  SizedBox(width: 20),
-                                                  Text(
-                                                    'Complete-os e ganhe\nexperiência e avançe de leve!',
-                                                    textAlign: TextAlign.start,
-                                                    style: TextStyle(
-                                                        color: AppColors.title,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 20,
-                                                        height: 1.5),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      : FadeInDown(
-                                          from: 40,
-                                          duration: Duration(milliseconds: 300),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Text(
-                                                'Inicie um ciclo\npara receber desafios',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: AppColors.title,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 30,
-                                                ),
-                                              ),
-                                              SvgPicture.asset(
-                                                'assets/icons/level-up.svg',
-                                                height: 120,
-                                                width: 120,
-                                              ),
-                                              Text(
-                                                'Avançe de level completando\nos desafios.',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: AppColors.title,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 24,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
+                                      ? InitialBanner()
+                                      : controller.state == CycleState.Started
+                                          ? StartedBanner()
+                                          : FinishBanner(),
                                 ),
                               ),
                             ],

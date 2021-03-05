@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moveit/presentation/home_page.dart';
 import 'package:moveit/shared/styles/theme.dart';
-
 import 'presentation/home_controller.dart';
 import 'shared/services/message_service.dart';
 

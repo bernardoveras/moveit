@@ -1,5 +1,5 @@
 enum CycleState {
   Initial,
   Started,
-  Closed,
+  Finish,
 }

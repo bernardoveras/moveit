@@ -1,9 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:moveit/domain/entities/user.dart';
 import 'package:moveit/shared/styles/colors.dart';
 
 class Profile extends StatelessWidget {
+  final User? user;
+
+  const Profile({Key? key, this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,8 +25,7 @@ class Profile extends StatelessWidget {
                 color: Colors.grey,
                 borderRadius: BorderRadius.circular(80 / 2),
                 image: DecorationImage(
-                  image: NetworkImage(
-                      'https://avatars.githubusercontent.com/u/56937988?v=4'),
+                  image: NetworkImage(user?.photo ?? ''),
                 ),
               ),
             ),
@@ -37,7 +40,7 @@ class Profile extends StatelessWidget {
                   duration: Duration(milliseconds: 400),
                   from: 30,
                   child: Text(
-                    'Bernardo Veras',
+                    user?.name ?? '',
                     style: TextStyle(
                       color: AppColors.title,
                       fontWeight: FontWeight.w600,
@@ -56,7 +59,7 @@ class Profile extends StatelessWidget {
                       SvgPicture.asset('assets/icons/level.svg'),
                       SizedBox(width: 8),
                       Text(
-                        'Level 1',
+                        'Level ${user?.level ?? 0}',
                         style: TextStyle(
                           color: Color(0xFF666666),
                           fontWeight: FontWeight.w500,

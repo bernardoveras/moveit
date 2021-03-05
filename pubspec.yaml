@@ -43,5 +43,7 @@ flutter:
           
   assets:
       - assets/icons/level.svg
+      - assets/icons/body.svg
       - assets/icons/level-up.svg
+      - assets/notification.mp3
   
