@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class CompletedChallenges extends StatelessWidget {
   final int completedChallenges;
-  const CompletedChallenges(this.completedChallenges);
+  final int totalChallenges;
+  const CompletedChallenges(this.completedChallenges, this.totalChallenges);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +28,7 @@ class CompletedChallenges extends StatelessWidget {
             ),
           ),
           Text(
-            completedChallenges.toString(),
+            '$completedChallenges/$totalChallenges',
             style: TextStyle(
               color: Color(0xFF666666),
               fontWeight: FontWeight.w500,

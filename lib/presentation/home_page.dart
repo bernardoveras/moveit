@@ -12,7 +12,6 @@ import 'package:moveit/presentation/components/profile.dart';
 import 'package:moveit/presentation/components/started_banner.dart';
 import 'package:moveit/presentation/home_controller.dart';
 import 'package:moveit/shared/cycle_states.dart';
-import 'package:moveit/shared/styles/colors.dart';
 
 class HomePage extends GetView<HomeController> {
   @override
@@ -31,7 +30,10 @@ class HomePage extends GetView<HomeController> {
                       //Header
                       Positioned(
                         top: 40,
-                        child: ExperienceBar(0),
+                        child: Obx(() => ExperienceBar(
+                            0,
+                            controller.user!.value!.points,
+                            controller.maxPoints[controller.user!.value!.level])),
                       ),
                       Container(
                         width: constraints.maxWidth * 0.65,
@@ -54,8 +56,15 @@ class HomePage extends GetView<HomeController> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Profile(user: controller.currentUser?.value),
-                                    CompletedChallenges(controller.currentUser!.value!.completedChallenges),
+                                    Obx(() =>
+                                        Profile(user: controller.user?.value)),
+                                    Obx(
+                                      () => CompletedChallenges(
+                                        controller
+                                            .user!.value!.completedChallenges,
+                                        controller.user!.value!.totalChallenges,
+                                      ),
+                                    ),
                                     Obx(() => Countdown(controller.time)),
                                     Obx(
                                       () => CycleButton(
@@ -67,7 +76,8 @@ class HomePage extends GetView<HomeController> {
                                                   CycleState.Started;
                                             } else if (controller.state ==
                                                 CycleState.Started) {
-                                              controller.resetState();
+                                              controller.state =
+                                                  CycleState.Initial;
                                             }
                                           }),
                                     ),

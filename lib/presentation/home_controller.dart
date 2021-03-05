@@ -9,7 +9,15 @@ import 'package:moveit/shared/services/message_service.dart';
 class HomeController extends GetxController {
   late IMessageService messageService;
 
-  Rx<User?>? currentUser;
+  Rx<User?>? user;
+
+  List<int> get maxPoints => [
+        600,
+        1200,
+        1800,
+        2400,
+      ];
+
   Worker? _ever;
 
   Rx<CycleState> _state = CycleState.Initial.obs;
@@ -17,7 +25,7 @@ class HomeController extends GetxController {
   set state(CycleState value) => _state.value = value;
   resetState() => _state.value = CycleState.Initial;
 
-  RxInt _time = (11 * 60).obs;
+  RxInt _time = (1 * 60).obs;
   int get time => _time.value;
   set time(int value) => _time.value = value;
   resetTime() => _time.value = (1 * 60);
@@ -25,7 +33,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    currentUser = User(
+    user = User(
       name: 'Bernardo Veras',
       photo: 'https://avatars.githubusercontent.com/u/56937988?v=4',
     ).obs;
@@ -37,14 +45,23 @@ class HomeController extends GetxController {
           Future.delayed(const Duration(seconds: 1), () {
             time = time - 1;
           });
-        } else if (time == 0) {
-          playAudioSuccess();
-          state = CycleState.Finish;
-        } else if (state == CycleState.Initial && time > 0) {
-          resetTime();
+        } else if (state == CycleState.Started && time == 0) {
+          completeChallenge();
         }
       },
     );
+  }
+
+  void completeChallenge() {
+    playAudioSuccess();
+    user!.value!.points = user!.value!.points + (maxPoints[user!.value!.level] * 0.2).toInt();
+    user!.value!.completedChallenges = user!.value!.completedChallenges + 1;
+    if (user!.value!.points == maxPoints[user!.value!.level])
+      user!.value!.level = user!.value!.level + 1;
+    user!.value!.totalChallenges = user!.value!.totalChallenges + 1;
+    user!.refresh();
+
+    state = CycleState.Finish;
   }
 
   void playAudioSuccess() {

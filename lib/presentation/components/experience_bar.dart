@@ -5,11 +5,13 @@ import 'package:moveit/shared/styles/colors.dart';
 class ExperienceBar extends StatelessWidget {
   /// O valor deve ser de [0] => [100].
   final int value;
+  final int minValue;
+  final int maxValue;
   double get percentage {
     return double.parse((value / 100).toStringAsFixed(2));
   }
 
-  const ExperienceBar(this.value);
+  const ExperienceBar(this.value, this.minValue, this.maxValue);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class ExperienceBar extends StatelessWidget {
           FadeInLeft(
             duration: Duration(milliseconds: 600),
             child: Text(
-              '0 xp',
+              '$minValue xp',
               style: TextStyle(
                 color: Color(0xFF666666),
                 fontWeight: FontWeight.w500,
@@ -61,7 +63,7 @@ class ExperienceBar extends StatelessWidget {
           FadeInRight(
             duration: Duration(milliseconds: 600),
             child: Text(
-              '600 xp',
+              '$maxValue xp',
               style: TextStyle(
                 color: Color(0xFF666666),
                 fontWeight: FontWeight.w500,

@@ -39,8 +39,9 @@ class Profile extends StatelessWidget {
                 FadeInUp(
                   duration: Duration(milliseconds: 400),
                   from: 30,
-                  child: Text(
+                  child: SelectableText(
                     user?.name ?? '',
+                    toolbarOptions: ToolbarOptions(copy: true),
                     style: TextStyle(
                       color: AppColors.title,
                       fontWeight: FontWeight.w600,
@@ -58,8 +59,9 @@ class Profile extends StatelessWidget {
                     children: [
                       SvgPicture.asset('assets/icons/level.svg'),
                       SizedBox(width: 8),
-                      Text(
+                      SelectableText(
                         'Level ${user?.level ?? 0}',
+                        toolbarOptions: ToolbarOptions(copy: true),
                         style: TextStyle(
                           color: Color(0xFF666666),
                           fontWeight: FontWeight.w500,
