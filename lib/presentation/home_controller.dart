@@ -25,10 +25,10 @@ class HomeController extends GetxController {
   set state(CycleState value) => _state.value = value;
   resetState() => _state.value = CycleState.Initial;
 
-  RxInt _time = (1 * 60).obs;
+  RxInt _time = (0 * 60).obs;
   int get time => _time.value;
   set time(int value) => _time.value = value;
-  resetTime() => _time.value = (1 * 60);
+  resetTime() => _time.value = (0 * 60);
 
   @override
   void onInit() {

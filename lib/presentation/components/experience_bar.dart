@@ -4,14 +4,13 @@ import 'package:moveit/shared/styles/colors.dart';
 
 class ExperienceBar extends StatelessWidget {
   /// O valor deve ser de [0] => [100].
+  /// Calculo da porcentagem:
+  ///
   final int value;
   final int minValue;
   final int maxValue;
-  double get percentage {
-    return double.parse((value / 100).toStringAsFixed(2));
-  }
 
-  const ExperienceBar(this.value, this.minValue, this.maxValue);
+  ExperienceBar(this.value, this.minValue, this.maxValue);
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +23,17 @@ class ExperienceBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          FadeInLeft(
-            duration: Duration(milliseconds: 600),
-            child: Text(
-              '$minValue xp',
-              style: TextStyle(
-                color: Color(0xFF666666),
-                fontWeight: FontWeight.w500,
+          Container(
+            width: 100,
+            alignment: Alignment.center,
+            child: FadeInLeft(
+              duration: Duration(milliseconds: 600),
+              child: Text(
+                '$minValue xp',
+                style: TextStyle(
+                  color: Color(0xFF666666),
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),
@@ -47,31 +50,61 @@ class ExperienceBar extends StatelessWidget {
                 ),
                 child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
-                    return Container(
-                      height: 4,
-                      width: constraints.maxWidth * percentage,
-                      decoration: BoxDecoration(
-                        color: AppColors.green,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
+                    return Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.centerLeft,
+                      children: [
+                        value != 0
+                            ? Positioned(
+                                right: 0,
+                                top: 15,
+                                child: Text(
+                                  '$value xp',
+                                  style: TextStyle(
+                                    color: Color(0xFF666666),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
+                        AnimatedContainer(
+                          duration: Duration(milliseconds: 400),
+                          curve: Curves.fastLinearToSlowEaseIn,
+                          height: 4,
+                          width: calculateProgressValue(
+                              constraints.maxWidth, value, maxValue),
+                          decoration: BoxDecoration(
+                            color: AppColors.green,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ],
                     );
                   },
                 ),
               ),
             ),
           ),
-          FadeInRight(
-            duration: Duration(milliseconds: 600),
-            child: Text(
-              '$maxValue xp',
-              style: TextStyle(
-                color: Color(0xFF666666),
-                fontWeight: FontWeight.w500,
+          Container(
+            width: 100,
+            alignment: Alignment.center,
+            child: FadeInRight(
+              duration: Duration(milliseconds: 600),
+              child: Text(
+                '$maxValue xp',
+                style: TextStyle(
+                  color: Color(0xFF666666),
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  double calculateProgressValue(double totalWidth, int points, int maxValue) {
+    return totalWidth / maxValue * points;
   }
 }

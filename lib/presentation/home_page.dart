@@ -31,7 +31,7 @@ class HomePage extends GetView<HomeController> {
                       Positioned(
                         top: 40,
                         child: Obx(() => ExperienceBar(
-                            0,
+                            controller.user!.value!.points,
                             controller.user!.value!.points,
                             controller.maxPoints[controller.user!.value!.level])),
                       ),
