@@ -56,13 +56,18 @@ class ExperienceBar extends StatelessWidget {
                       children: [
                         value != 0
                             ? Positioned(
-                                right: 0,
+                                right: -15,
                                 top: 15,
-                                child: Text(
-                                  '$value xp',
-                                  style: TextStyle(
-                                    color: Color(0xFF666666),
-                                    fontWeight: FontWeight.w500,
+                                child: FadeInUp(
+                                  from: 8,
+                                  delay: Duration(milliseconds: 150),
+                                  duration: Duration(milliseconds: 200),
+                                  child: Text(
+                                    '$value xp',
+                                    style: TextStyle(
+                                      color: Color(0xFF666666),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               )
@@ -105,6 +110,6 @@ class ExperienceBar extends StatelessWidget {
   }
 
   double calculateProgressValue(double totalWidth, int points, int maxValue) {
-    return totalWidth / maxValue * points;
+    return ((totalWidth / maxValue) * points);
   }
 }

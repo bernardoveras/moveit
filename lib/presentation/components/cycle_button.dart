@@ -32,7 +32,7 @@ class CycleButton extends StatelessWidget {
                 ? Border(
                     bottom: BorderSide(
                       color: AppColors.green,
-                      width: 8,
+                      width: 4,
                     ),
                   )
                 : null,

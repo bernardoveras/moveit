@@ -12,10 +12,14 @@ class HomeController extends GetxController {
   Rx<User?>? user;
 
   List<int> get maxPoints => [
-        600,
-        1200,
-        1800,
-        2400,
+        120,
+        360,
+        1080,
+        3240,
+        9720,
+        29160,
+        87480,
+        262440,
       ];
 
   Worker? _ever;
@@ -46,22 +50,22 @@ class HomeController extends GetxController {
             time = time - 1;
           });
         } else if (state == CycleState.Started && time == 0) {
-          completeChallenge();
+          playAudioSuccess();
+          state = CycleState.Finish;
         }
       },
     );
   }
 
   void completeChallenge() {
-    playAudioSuccess();
-    user!.value!.points = user!.value!.points + (maxPoints[user!.value!.level] * 0.2).toInt();
-    user!.value!.completedChallenges = user!.value!.completedChallenges + 1;
-    if (user!.value!.points == maxPoints[user!.value!.level])
+    user!.value!.points = user!.value!.points + (maxPoints[user!.value!.level] * 0.15) .toInt();
+    if (user!.value!.points >= maxPoints[user!.value!.level])
       user!.value!.level = user!.value!.level + 1;
+    user!.value!.completedChallenges = user!.value!.completedChallenges + 1;
     user!.value!.totalChallenges = user!.value!.totalChallenges + 1;
     user!.refresh();
 
-    state = CycleState.Finish;
+    state = CycleState.Initial;
   }
 
   void playAudioSuccess() {

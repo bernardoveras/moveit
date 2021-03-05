@@ -4,6 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:moveit/shared/styles/colors.dart';
 
 class FinishBanner extends StatelessWidget {
+  final Function()? complete;
+  final Function()? failed;
+
+  const FinishBanner({Key? key, this.complete, this.failed}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return FadeInDown(
@@ -80,15 +84,15 @@ class FinishBanner extends StatelessWidget {
                       width: size.maxWidth / 2 - 8,
                       child: Button(
                         text: 'Falhei',
-                        onPressed: () {},
                         backgroundColor: AppColors.red,
+                        onPressed: failed,
                       ),
                     ),
                     Container(
                       width: size.maxWidth / 2 - 8,
                       child: Button(
                         text: 'Completei',
-                        onPressed: () {},
+                        onPressed: complete,
                         backgroundColor: AppColors.green,
                       ),
                     ),

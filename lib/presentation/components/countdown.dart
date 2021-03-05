@@ -21,6 +21,16 @@ class Countdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 50.0,
+            spreadRadius: 1.0,
+          ),
+        ],
+        borderRadius: BorderRadius.circular(5),
+      ),
       width: double.infinity,
       child: Wrap(
         alignment: WrapAlignment.spaceBetween,
@@ -69,6 +79,10 @@ class CountdownNumberContainer extends StatelessWidget {
           width: 120,
           decoration: BoxDecoration(
             color: Colors.white,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(5),
+              topLeft: Radius.circular(5),
+            ),
           ),
           alignment: Alignment.center,
           child: FadeInLeft(
@@ -84,27 +98,33 @@ class CountdownNumberContainer extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          height: 200,
-          width: 120,
+        DecoratedBox(
           decoration: BoxDecoration(
-              color: Colors.white,
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(5),
+              topRight: Radius.circular(5),
+            ),
+            color: Colors.white,
+          ),
+          child: Container(
+            height: 200,
+            width: 120,
+            decoration: BoxDecoration(
               border: Border(
-                left: BorderSide(
-                  color: Color(0xFFF0F1F3),
-                  width: 1.5,
+                left: BorderSide(color: Color(0xFFF0F1F3), width: 1.5),
+              ),
+            ),
+            alignment: Alignment.center,
+            child: FadeInRight(
+              from: 10,
+              duration: Duration(milliseconds: 300),
+              child: Text(
+                '$rightValue',
+                style: TextStyle(
+                  fontFamily: 'Rajdhani',
+                  color: AppColors.title,
+                  fontSize: 150,
                 ),
-              )),
-          alignment: Alignment.center,
-          child: FadeInRight(
-            from: 10,
-            duration: Duration(milliseconds: 300),
-            child: Text(
-              '$rightValue',
-              style: TextStyle(
-                fontFamily: 'Rajdhani',
-                color: AppColors.title,
-                fontSize: 150,
               ),
             ),
           ),

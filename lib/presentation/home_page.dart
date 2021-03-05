@@ -107,7 +107,9 @@ class HomePage extends GetView<HomeController> {
                                       ? InitialBanner()
                                       : controller.state == CycleState.Started
                                           ? StartedBanner()
-                                          : FinishBanner(),
+                                          : FinishBanner(complete: (){
+                                            controller.completeChallenge();
+                                          },),
                                 ),
                               ),
                             ],
